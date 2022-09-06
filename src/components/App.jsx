@@ -24,7 +24,7 @@ export default class App extends Component {
   componentDidUpdate(_, prevState) {
     if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
       this.setState({
-        images: [],
+        // images: [],
         status: 'pending',
       });
       
@@ -50,7 +50,7 @@ export default class App extends Component {
         })
         .then(response => {
           this.setState({
-            images: [...response.hits],
+            images: [...prevState.images, ...response.hits],
             status: 'resolved',
           });
         })
