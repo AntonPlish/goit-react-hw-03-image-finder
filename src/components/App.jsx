@@ -21,10 +21,9 @@ export default class App extends Component {
     largeImageAlt: '',
   }
 
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
       this.setState({
-        // images: [],
         status: 'pending',
       });
       
@@ -49,10 +48,10 @@ export default class App extends Component {
           );
         })
         .then(response => {
-          this.setState({
+          this.setState(prevState => ({
             images: [...prevState.images, ...response.hits],
             status: 'resolved',
-          });
+          }));
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
     };
